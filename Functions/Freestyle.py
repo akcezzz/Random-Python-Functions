@@ -144,37 +144,162 @@ def queue_time(customers, n):
     '''
     alist = []
 
-    if len(customers) == 0: #if there is no customer
+    if len(customers) == 0:  # if there is no customer
         return 0
-    elif len(customers) <= n: #if theres less customers than the number of checkout tills (or =)
+    elif len(customers) <= n:  # if theres less customers than the number of checkout tills (or =)
         return max(customers)
     else:
         for i in range(n):
             alist.append(customers[i])
-        for i in range(n,len(customers)):
-            alist[alist.index(min(alist))] += customers[i] #The smallest value of alist (smallest amount of time) is incremented with time
-        #of next customer
-        return max(alist) #returns the max amount of time, or total time taken to go through all customers
+        for i in range(n, len(customers)):
+            alist[alist.index(min(alist))] += customers[
+                i]  # The smallest value of alist (smallest amount of time) is incremented with time
+        # of next customer
+        return max(alist)  # returns the max amount of time, or total time taken to go through all customers
 
-from random import randint
-def is_valid_IP(strng):
+
+def spin_words(sentence):
     '''
-    This function returns wether or not an IPV4 is valid or not
+    This function returns a sentence with words that have 5 or more letters reversed
     '''
-    l = (strng.replace('.', ' ')).split()
-    if len(l) != 4:
-        return False
+    ls = sentence.split()
+    mystring = ''
+    for i in range(len(ls)):
+        if len(ls[i]) >= 5:
+            ls[i] = (str(ls[i])[::-1])
+
+    return ' '.join(ls)
+
+
+mysentence = 'It is cold outside'
+print(spin_words(mysentence))  # Test
+
+
+# or
+
+def spin_words(sentence):
+    # Your code goes here
+    return " ".join([x[::-1] if len(x) >= 5 else x for x in sentence.split(" ")])
+
+
+def make_readable1(seconds):
+    '''
+    This functin takes an integer and returns its equivalent in time-readable HH:MM:SS
+    '''
+    s = seconds % 60
+    m = int(((seconds / 60) % 60))
+    h = int(seconds / 3600)
+
+    if s < 10:
+        s = '0' + str(s)
     else:
-        for part in l:
-            if int(part) > 255:
-                return False
-            elif int(part) > 0 and '0'+str(randint(0,9)) in strng:
-                return False
-            else:
-                return True
+        s = str(s)
+    if m < 10:
+        m = '0' + str(m)
+    else:
+        m = str(m)
+    if h < 10:
+        h = '0' + str(h)
+    else:
+        h = str(h)
+
+    return h + ':' + m + ':' + s
 
 
-ip = '12.255.56.1'
-print(is_valid_IP(ip))
+test = 86399
+print(make_readable1(test))
 
-'0'+str(randint(0,9)) in strng
+
+# Or
+
+def make_readable(s):
+    return '{:02}:{:02}:{:02}'.format(s / 3600, s / 60 % 60, s % 60)
+
+
+def order_weight(strng):
+    '''
+    This function takes a string and finds the sum of digits of every number contained in the string
+    '''
+    sum = 0
+    alist = strng.split()
+    newlist = [0]*len(alist)
+    for  nnum in newlist:
+        for anum in alist:
+            for number in anum:
+                nnum += int(number)
+
+
+    print(newlist)
+
+
+def sum_dig_pow(a, b):  # range(a, b + 1) will be studied by the function
+    ls = []
+    sum = 0
+    for num in range(a, b + 1):
+        string = str(num)
+        for y in range(len(string)):
+            sum += int(string[y])**(y+1)
+            if sum == num:
+                ls.append(sum)
+        sum = 0
+    return ls
+
+
+
+print(sum_dig_pow(1,100))
+
+def productFib(prod):
+    '''
+    This function takes an int computes if it is fibonacci number or not
+    '''
+    def if_Fib(n):
+        '''
+        This function returns wether or not n is fibonacci number or not (True/False)
+        '''
+        sum1 = 0
+        sum2 = 1
+        sum3 = 0
+        answer = False
+        for i in range(2,n):
+            sum3 = sum2 + sum1
+            sum1 = sum2
+            sum2 = sum3
+            if sum3 == n:
+                answer = True
+        return answer
+
+
+def if_Fib(n):
+    '''
+    This function returns wether or not n is fibonacci number or not (True/False)
+    '''
+    sum1 = 0
+    sum2 = 1
+    sum3 = 0
+    answer = False
+    for i in range(2,n):
+        sum3 = sum2 + sum1
+        sum1 = sum2
+        sum2 = sum3
+        if sum3 == n:
+            answer = True
+    return answer
+
+print(if_Fib(233))
+
+
+def removNb(n):
+    ls = []
+    sum = 0
+    for x in range(0,n):
+        sum += x
+    x = 0
+    y =1
+    while y == n:
+        if x*y == sum-x-y:
+            ls.append(x)
+            ls.append(y)
+
+    return ls
+
+print(removNb(26))
